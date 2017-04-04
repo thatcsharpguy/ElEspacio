@@ -13,11 +13,9 @@ namespace ElEspacio
         Este,
         Oeste
     }
-    
+
     public class Coordenada
     {
-        private string _name;
-
         public Coordenada(decimal latitud, decimal longitud) : this(latitud, longitud, 0)
         {
         }
@@ -37,21 +35,17 @@ namespace ElEspacio
 
         public HemisferioEsteOeste HemisferioEsteOeste => Longitud < 0 ? HemisferioEsteOeste.Oeste : HemisferioEsteOeste.Este;
 
+        private string _name;
         public string Name
         {
-            get { return _name; }
-            set
-            {
-                if (_name == null)
-                    throw new ArgumentException($"{nameof(value)} cannot be null");
-                _name = value;
-            }
+            get => _name;
+            set => _name = value ?? throw new ArgumentException($"{nameof(value)} cannot be null");
         }
-
-        public string Descripcion => $"{Name}: Latitud: {Latitud} ({HemisferioNorteSur}), Longitud: {Longitud} ({HemisferioEsteOeste}), Altitud {Altitud}";
 
 
         public override string ToString() => $"Latitud: {Latitud}, Longitud: {Longitud}";
+
+        public string Descripcion => $"{Name}: Latitud: {Latitud} ({HemisferioNorteSur}), Longitud: {Longitud} ({HemisferioEsteOeste}), Altitud {Altitud}";
 
         public void Deconstruct(out decimal latitud, out decimal longitud)
         {

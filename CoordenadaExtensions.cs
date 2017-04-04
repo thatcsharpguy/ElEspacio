@@ -15,11 +15,12 @@ namespace ElEspacio
         {
             var newLongitud = GetNewLongitud(actual.Longitud);
             return new Coordenada(actual.Longitud, newLongitud);
-        }
 
-        private static decimal GetNewLongitud(decimal longitud)
-        {
-            return (longitud < 0 ? 1 : -1) * Math.Abs(180 - Math.Abs(longitud));
+
+            decimal GetNewLongitud(decimal longitud)
+            {
+                return (longitud < 0 ? 1 : -1) * Math.Abs(180 - Math.Abs(longitud));
+            }
         }
 
         public static Coordenada AntipodaLatitud(this Coordenada actual)
@@ -28,9 +29,10 @@ namespace ElEspacio
             return new Coordenada(newLatitud, actual.Longitud);
         }
 
-        public static Tuple<Coordenada, Coordenada, Coordenada> GetInterestingPoints(this Coordenada coordenada)
+        public static (Coordenada antipoda, Coordenada antipodaLongitud, Coordenada antipodaLatitud)
+            GetInterestingPoints(this Coordenada coordenada)
         {
-            return Tuple.Create(coordenada.Antipoda(),
+            return (coordenada.Antipoda(),
                 coordenada.AntipodaLongitud(),
                 coordenada.AntipodaLatitud());
         }
